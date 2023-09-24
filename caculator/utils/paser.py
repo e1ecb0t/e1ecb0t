@@ -1,0 +1,12 @@
+# 指令解析
+from argparse import ArgumentParser
+
+
+def arg_parse():
+    parser = ArgumentParser()
+    parser.add_argument('-n', nargs=1, type=int,  help='the num of generated subject')
+    parser.add_argument('-r', nargs=1, type=int,  help='the range of generated numbers.')
+    parser.add_argument('-e', nargs=1, type=str, help='exercise file')
+    parser.add_argument('-a', nargs=1, type=str, help='answer file')
+    args = parser.parse_args()
+    return args
