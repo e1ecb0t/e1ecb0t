@@ -58,9 +58,14 @@ def inspect(answer_file, expression_file):
             if a_sqe not in correct_seq:
                 wrong_seq.append(a_sqe)
 
-        # 保存结果
-        save_inspect(correct_seq, wrong_seq)
-
+        inspect_file = root_path + '/Grade.txt'
+        try:
+            with open(inspect_file, 'w+', encoding='utf-8') as f:
+                f.write(f'Correct: {len(correct_seq)} {correct_seq}\n'
+                        f'Wrong: {len(wrong_seq)} {wrong_seq}\n'
+                        f'Accuracy: {round(len(correct_seq) / (len(wrong_seq) + len(correct_seq)), 4) * 100}%\n')
+        except IOError:
+            print('Grade.txt create failed. Please check again')
     except IOError:
         print('Failed to open file')
         return
@@ -88,13 +93,3 @@ def save_answer(answers_list, order):
         print('Answer.txt create failed. Please check again')
 
 
-# 保存比较结果 传入正确列表以及错误列表
-def save_inspect(correct_list, wrong_list):
-    inspect_file = root_path + '/Grade.txt'
-    try:
-        with open(inspect_file, 'w+', encoding='utf-8') as f:
-            f.write(f'Correct: {len(correct_list)} {correct_list}\n'
-                    f'Wrong: {len(wrong_list)} {wrong_list}\n'
-                    f'Accuracy: {round(len(correct_list) / (len(wrong_list) + len(correct_list)), 4) * 100}%\n')
-    except IOError:
-        print('Grade.txt create failed. Please check again')
